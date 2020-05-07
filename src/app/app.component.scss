@@ -1,0 +1,32 @@
+:host {
+  display: block;
+
+  nb-layout-column {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+
+    nb-card {
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+
+      nb-card-body {
+        display: flex;
+        align-items: stretch;
+
+        .dz-map {
+          // height: 40rem;
+          flex: 1 auto;
+          padding: 2.25rem 2.25rem 0.75rem;
+        }
+
+        table {
+          width: 100%;
+        }
+      }
+
+    }
+  }
+
+}

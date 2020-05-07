@@ -1,0 +1,19 @@
+image: node:10.15.2
+
+pages:
+  cache:
+    paths:
+      - node_modules/
+    stage: deploy
+    script:
+      - npm install -g @angular/cli@9.1.1
+      - npm install
+      - ng build "--aot" "--base-href=/dzcovidtracker/"
+      - mv dist/* public/
+    artifacts:
+      paths:
+        - public
+    only:
+      - master
+      - pages
+
