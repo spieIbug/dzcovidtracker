@@ -1,44 +1,31 @@
-<nb-layout>
-  <nb-layout-header fixed>Algeria COVID-19 Tracker</nb-layout-header>
-  <nb-layout-column>
-    <nb-card accent="info">
-      <nb-card-header>Suivi Covid-19</nb-card-header>
-      <nb-card-body>
-        <div class="dz-map"
-             [ngClass]="currentWilaya ? 'col-9': 'col-12'"
-             leaflet
-             [leafletOptions]="options"
-             [leafletLayers]="totalDeathsLayers">
-        </div>
-        <div class="col-3 dz-map-controls" *ngIf="currentWilaya">
-          <nb-card>
-            <nb-card-body>
-              <table>
-                <thead>
-                <tr>
-                  <th rowspan="2">{{currentWilaya.province}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>Nombre de cas</td>
-                  <td>{{currentWilaya.confirmed_cases}}</td>
-                </tr>
-                <tr>
-                  <td>Nombre de morts</td>
-                  <td>{{currentWilaya.deaths}}</td>
-                </tr>
-                <tr>
-                  <td>Nombre de guérrisons</td>
-                  <td>{{currentWilaya.recoveries}}</td>
-                </tr>
-                </tbody>
-              </table>
-            </nb-card-body>
-          </nb-card>
-        </div>
-      </nb-card-body>
-    </nb-card>
-  </nb-layout-column>
-  <nb-layout-footer></nb-layout-footer>
-</nb-layout>
+<div class="row">
+  <div class="dz-map col-sm-12"
+       [ngClass]="currentWilaya ? 'col-md-9': 'col-md-12'"
+       leaflet
+       [leafletOptions]="options"
+       [leafletLayers]="totalDeathsLayers">
+  </div>
+  <div class="col-md-3 col-sm-12 dz-map-controls" *ngIf="currentWilaya">
+    <table>
+      <thead>
+      <tr>
+        <th rowspan="2">{{currentWilaya.province}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Nombre de cas</td>
+        <td>{{currentWilaya.confirmed_cases}}</td>
+      </tr>
+      <tr>
+        <td>Nombre de morts</td>
+        <td>{{currentWilaya.deaths}}</td>
+      </tr>
+      <tr>
+        <td>Nombre de guérrisons</td>
+        <td>{{currentWilaya.recoveries}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

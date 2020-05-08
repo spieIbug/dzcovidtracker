@@ -1,31 +1,26 @@
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-content: start;
+  height: 99rem;
 
-  nb-layout-column {
+  div.row {
     display: flex;
     align-items: stretch;
+    height: 100%;
     width: 100%;
-
-    nb-card {
+    margin: 0px;
+    .dz-map {
       display: flex;
       align-items: stretch;
+      padding: 2.25rem 2.25rem 0.75rem;
+    }
+
+    table {
       width: 100%;
-
-      nb-card-body {
-        display: flex;
-        align-items: stretch;
-
-        .dz-map {
-          // height: 40rem;
-          flex: 1 auto;
-          padding: 2.25rem 2.25rem 0.75rem;
-        }
-
-        table {
-          width: 100%;
-        }
-      }
-
     }
   }
 

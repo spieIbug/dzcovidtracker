@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   title = 'dzcovidtracker';
   options = {
     layers: [
-      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18, attribution: '...'})
+      tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {maxZoom: 18, attribution: '...'})
     ],
     zoom: 5,
     center: latLng(27.4499077, 3.0233393)
@@ -34,16 +34,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentdate = moment.utc();
-    const covid = this.statsService.getByDay(this.currentdate);
+    this.statsService.getStatsForDay(this.currentdate).subscribe((covid: DailyStat[]) => {
+      this.totalCasesLayers = covid.map(dailyStat => {
+        return this.totalCasesMarker(dailyStat).on('click', () => this.wilayaClick(dailyStat));
+      });
 
-    this.totalCasesLayers = covid.map(dailyStat => {
-      return this.totalCasesMarker(dailyStat).on('click', () => this.wilayaClick(dailyStat));
+      this.totalDeathsLayers = covid.map(dailyStat => {
+        return this.totalDeathsMarker(dailyStat).on('click', () => this.wilayaClick(dailyStat));
+      });
     });
-
-    this.totalDeathsLayers = covid.map(dailyStat => {
-      return this.totalDeathsMarker(dailyStat).on('click', () => this.wilayaClick(dailyStat));
-    });
-
   }
 
   totalCasesMarker(dailyStat: DailyStat): Circle {

@@ -1,4 +1,9 @@
-@import '~@nebular/theme/styles/prebuilt/dark.css';
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~font-awesome/css/font-awesome.min.css';
 @import '~leaflet/dist/leaflet.css';
+body {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  margin: 0;
+}
