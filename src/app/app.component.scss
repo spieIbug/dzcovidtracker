@@ -1,27 +1,48 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  flex-wrap: wrap;
-  justify-content: start;
-  align-content: start;
-  height: 99rem;
-
-  div.row {
     display: flex;
-    align-items: stretch;
-    height: 100%;
-    width: 100%;
-    margin: 0px;
-    .dz-map {
-      display: flex;
-      align-items: stretch;
-      padding: 2.25rem 2.25rem 0.75rem;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: start;
+    height: 100vh;
+
+  .dz-nav {
+    margin: 2px;
+    padding: 1rem;
+    height: 8vh;
+    text-align: center;
+
+    .dz-main-title {
+      vertical-align: middle;
+      margin-right: 1rem;
+      color: var(--dz-second-color);
     }
 
-    table {
-      width: 100%;
+    .dz-main-icon {
+      width: 2rem;
+      vertical-align: middle;
+      color: var(--dz-third-color);
     }
   }
 
+  .dz-main {
+    max-height: 92vh;
+    height: 92vh;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    overflow-y: auto;
+    // display: grid;
+    /*gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));*/
+
+    .dz-map-container {
+      margin-bottom: 2rem;
+      .dz-map {
+        /*grid-column: 2 / 4;*/
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+  }
 }

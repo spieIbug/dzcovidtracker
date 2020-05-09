@@ -1,9 +1,76 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~font-awesome/css/font-awesome.min.css';
 @import '~leaflet/dist/leaflet.css';
+
+:root {
+  font-size: 16px;
+  font-family: 'Open Sans';
+  --dz-first-color: #ececec;
+  --dz-second-color: #1dec39;
+  --dz-third-color: #ec1d39;
+  --bg-primary: #141418;
+  --bg-secondary: #23232e;
+  --transition-speed: 600ms;
+}
+
+html {
+  height: 100%;
+  font-family: 'Teko', sans-serif;
+}
 body {
-  display: flex;
-  align-items: stretch;
-  width: 100%;
+  color: var(--dz-first-color);
+  background-color: var(--bg-primary);
+  min-height: 100%;
   margin: 0;
+  padding: 0;
+}
+
+.card {
+  color: var(--dz-first-color);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--dz-first-color);
+}
+
+
+.form-control {
+  color: var(--dz-first-color);
+  background-color: var(--bg-primary);
+}
+
+.form-control::-ms-expand {
+  background-color: transparent;
+  border: 0;
+}
+
+.form-control:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #495057;
+}
+
+.form-control:focus {
+  color: var(--dz-first-color);
+  background-color: var(--bg-primary);
+  outline: 0;
+}
+
+.form-control::placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+.form-control:disabled, .form-control[readonly] {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+
+select.form-control:focus::-ms-value {
+  color: var(--dz-first-color);
+  background-color: var(--bg-primary);
+}
+
+select.form-control {
+  &:focus::-ms-value {
+    color: var(--dz-first-color);
+    background-color: var(--bg-primary);
+  }
 }

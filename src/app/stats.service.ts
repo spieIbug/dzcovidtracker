@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { map as _map } from 'lodash';
 
-export interface DailyStat {
+export interface StatistiqueParWilaya {
   province: string;
   first_case: string;
   confirmed_cases: string;
@@ -22,10 +22,10 @@ export class StatsService {
   constructor(private http: HttpClient) {
   }
 
-  getStatsForDay(date: moment.Moment): Observable<DailyStat[]> {
+  getStatsForDay(date: moment.Moment): Observable<StatistiqueParWilaya[]> {
     return this.http.get(`assets/${moment.utc(date).format('YYYY-MM-DD')}.json`)
       .pipe(
-        map((response: DailyStat[]) => {
+        map((response: StatistiqueParWilaya[]) => {
             return _map(response, data => ({
               ...data,
               first_case: moment.utc(data.first_case).format('DD/MM/YYYY'),
