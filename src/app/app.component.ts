@@ -126,7 +126,7 @@ export class AppComponent implements OnInit {
   }
 
   totalRecorveredMarker(dailyStat: StatistiqueParWilaya): Circle {
-    return circle(dailyStat.latlng, {radius: Number(dailyStat.recoveries) * 1000, color: '#1dec39', fillColor: '#1dec39'})
+    return circle(dailyStat.latlng, {radius: Number(dailyStat.recoveries) * 100, color: '#1dec39', fillColor: '#1dec39'})
       .bindPopup(`<h5 style="color: var(--dark)">${dailyStat.province}</h5>
           <p>
             <dl>
