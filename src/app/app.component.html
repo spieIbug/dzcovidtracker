@@ -1,54 +1,116 @@
-<nav class="dz-nav">
-  <span class="dz-main-title">DZ Covid Tracker</span>
-  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="virus"
-       class="dz-main-icon svg-inline&#45;&#45;fa fa-virus fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
-       viewBox="0 0 512 512">
-    <path fill="currentColor"
-          d="M483.55,227.55H462c-50.68,0-76.07-61.27-40.23-97.11L437,115.19A28.44,28.44,0,0,0,396.8,75L381.56,90.22c-35.84,35.83-97.11,10.45-97.11-40.23V28.44a28.45,28.45,0,0,0-56.9,0V50c0,50.68-61.27,76.06-97.11,40.23L115.2,75A28.44,28.44,0,0,0,75,115.19l15.25,15.25c35.84,35.84,10.45,97.11-40.23,97.11H28.45a28.45,28.45,0,1,0,0,56.89H50c50.68,0,76.07,61.28,40.23,97.12L75,396.8A28.45,28.45,0,0,0,115.2,437l15.24-15.25c35.84-35.84,97.11-10.45,97.11,40.23v21.54a28.45,28.45,0,0,0,56.9,0V462c0-50.68,61.27-76.07,97.11-40.23L396.8,437A28.45,28.45,0,0,0,437,396.8l-15.25-15.24c-35.84-35.84-10.45-97.12,40.23-97.12h21.54a28.45,28.45,0,1,0,0-56.89ZM224,272a48,48,0,1,1,48-48A48,48,0,0,1,224,272Zm80,56a24,24,0,1,1,24-24A24,24,0,0,1,304,328Z"></path>
-  </svg>
-</nav>
-<main class="dz-main row">
-  <div class="col-md-3 col-sm-12">
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="mode" value="confirmed_cases" id="totalCases" [formControl]="mode">
-      <label class="form-check-label" for="totalCases">Nombre de cas</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="mode" id="deaths" value="deaths" [formControl]="mode">
-      <label class="form-check-label" for="deaths">D&eacute;c&egrave;s</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="mode" id="recovered" value="recoveries" [formControl]="mode">
-      <label class="form-check-label" for="recovered">Gu&eacute;risons</label>
-    </div>
-    <div class="form-group">
-      <label for="wilaya">Wilayas</label>
-      <select class="form-control" id="wilaya" [formControl]="wilaya">
-        <option [ngValue]="null">Toutes les wilayas</option>
-        <option *ngFor="let w of currentStats" [ngValue]="w">{{w.province}}</option>
-      </select>
-    </div>
-    <div class="card" style="height: 85%">
-      <div class="card-body">
-        <div class="chart-wrapper">
-          <canvas baseChart
-                  [height]="500"
-                  [datasets]="barChartData"
-                  [labels]="barChartLabels"
-                  [options]="barChartOptions"
-                  [plugins]="barChartPlugins"
-                  [legend]="barChartLegend"
-                  [chartType]="barChartType">
-          </canvas>
-        </div>
+<header class="header dz-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <div class="navbar-header">
+        <a href="/" class="navbar-brand">
+        <div class="brand-text brand-big visible text-uppercase"><strong class="text-success">DZ</strong><strong
+          class="text-primary">COVID-19</strong><strong>Tracker</strong></div>
+        <div class="brand-text brand-sm"><strong class="text-primary">DZ</strong><strong>COV-19</strong></div>
+      </a>
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="virus"
+             class="dz-main-icon svg-inline&#45;&#45;fa fa-virus fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 512 512">
+          <path fill="currentColor"
+                d="M483.55,227.55H462c-50.68,0-76.07-61.27-40.23-97.11L437,115.19A28.44,28.44,0,0,0,396.8,75L381.56,90.22c-35.84,35.83-97.11,10.45-97.11-40.23V28.44a28.45,28.45,0,0,0-56.9,0V50c0,50.68-61.27,76.06-97.11,40.23L115.2,75A28.44,28.44,0,0,0,75,115.19l15.25,15.25c35.84,35.84,10.45,97.11-40.23,97.11H28.45a28.45,28.45,0,1,0,0,56.89H50c50.68,0,76.07,61.28,40.23,97.12L75,396.8A28.45,28.45,0,0,0,115.2,437l15.24-15.25c35.84-35.84,97.11-10.45,97.11,40.23v21.54a28.45,28.45,0,0,0,56.9,0V462c0-50.68,61.27-76.07,97.11-40.23L396.8,437A28.45,28.45,0,0,0,437,396.8l-15.25-15.24c-35.84-35.84-10.45-97.12,40.23-97.12h21.54a28.45,28.45,0,1,0,0-56.89ZM224,272a48,48,0,1,1,48-48A48,48,0,0,1,224,272Zm80,56a24,24,0,1,1,24-24A24,24,0,0,1,304,328Z"></path>
+        </svg>
       </div>
     </div>
+  </nav>
+</header>
+<div class="d-flex align-items-stretch dz-container">
+  <div class="page-content">
+    <section class="no-padding-top no-padding-bottom">
+      <div class="container-fluid">
+        <div class="row" *ngIf="(globalStats$ | async) as globalStats">
+          <div class="col-md-4 col-sm-6">
+            <div class="block">
+              <div class="progress-details d-flex align-items-end justify-content-between">
+                <div class="title">
+                  <div class="icon">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="procedures" class="text-info svg-inline--fa fa-procedures fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M528 224H272c-8.8 0-16 7.2-16 16v144H64V144c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v352c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-48h512v48c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V336c0-61.9-50.1-112-112-112zM136 96h126.1l27.6 55.2c5.9 11.8 22.7 11.8 28.6 0L368 51.8 390.1 96H512c8.8 0 16-7.2 16-16s-7.2-16-16-16H409.9L382.3 8.8C376.4-3 359.6-3 353.7 8.8L304 108.2l-19.9-39.8c-1.4-2.7-4.1-4.4-7.2-4.4H136c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8zm24 256c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64z"></path></svg>
+                  </div>
+                  <strong class="text-info">Nombre total de cas</strong>
+                </div>
+                <div class="number text-info">{{globalStats.confirmed_cases}}</div>
+              </div>
+              <div class="progress progress-template">
+                <div role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                     class="progress-bar progress-bar-template bg-info"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="block">
+              <div class="progress-details d-flex align-items-end justify-content-between">
+                <div class="title">
+                  <div class="icon">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="virus"
+                         class="text-danger dz-main-icon svg-inline&#45;&#45;fa fa-virus fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 512 512">
+                      <path fill="currentColor"
+                            d="M483.55,227.55H462c-50.68,0-76.07-61.27-40.23-97.11L437,115.19A28.44,28.44,0,0,0,396.8,75L381.56,90.22c-35.84,35.83-97.11,10.45-97.11-40.23V28.44a28.45,28.45,0,0,0-56.9,0V50c0,50.68-61.27,76.06-97.11,40.23L115.2,75A28.44,28.44,0,0,0,75,115.19l15.25,15.25c35.84,35.84,10.45,97.11-40.23,97.11H28.45a28.45,28.45,0,1,0,0,56.89H50c50.68,0,76.07,61.28,40.23,97.12L75,396.8A28.45,28.45,0,0,0,115.2,437l15.24-15.25c35.84-35.84,97.11-10.45,97.11,40.23v21.54a28.45,28.45,0,0,0,56.9,0V462c0-50.68,61.27-76.07,97.11-40.23L396.8,437A28.45,28.45,0,0,0,437,396.8l-15.25-15.24c-35.84-35.84-10.45-97.12,40.23-97.12h21.54a28.45,28.45,0,1,0,0-56.89ZM224,272a48,48,0,1,1,48-48A48,48,0,0,1,224,272Zm80,56a24,24,0,1,1,24-24A24,24,0,0,1,304,328Z"></path>
+                    </svg>
+                  </div>
+                  <strong class="text-danger">Nombre de morts</strong>
+                </div>
+                <div class="number text-danger">{{globalStats.deaths}}</div>
+              </div>
+              <div class="progress progress-template">
+                <div role="progressbar"
+                     [style.width.%]="globalStats.deaths * 100 / globalStats.confirmed_cases"
+                     [attr.aria-valuenow]="globalStats.deaths"
+                     aria-valuemin="0"
+                     [attr.aria-valuemax]="globalStats.confirmed_cases"
+                     class="progress-bar progress-bar-template bg-danger"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="block">
+              <div class="progress-details d-flex align-items-end justify-content-between">
+                <div class="title">
+                  <div class="icon">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="smile-beam" class="text-success svg-inline--fa fa-smile-beam fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zM112 223.4c3.3-42.1 32.2-71.4 56-71.4s52.7 29.3 56 71.4c.7 8.6-10.8 11.9-14.9 4.5l-9.5-17c-7.7-13.7-19.2-21.6-31.5-21.6s-23.8 7.9-31.5 21.6l-9.5 17c-4.3 7.4-15.8 4-15.1-4.5zm250.8 122.8C334.3 380.4 292.5 400 248 400s-86.3-19.6-114.8-53.8c-13.5-16.3 11-36.7 24.6-20.5 22.4 26.9 55.2 42.2 90.2 42.2s67.8-15.4 90.2-42.2c13.6-16.2 38.1 4.3 24.6 20.5zm6.2-118.3l-9.5-17c-7.7-13.7-19.2-21.6-31.5-21.6s-23.8 7.9-31.5 21.6l-9.5 17c-4.1 7.3-15.6 4-14.9-4.5 3.3-42.1 32.2-71.4 56-71.4s52.7 29.3 56 71.4c.6 8.6-11 11.9-15.1 4.5z"></path></svg>
+                  </div>
+                  <strong class="text-success">Total gu&eacute;risons</strong>
+                </div>
+                <div class="number text-success">{{globalStats.recoveries}}</div>
+              </div>
+              <div class="progress progress-template">
+                <div role="progressbar"
+                     [style.width.%]="globalStats.recoveries * 100 / globalStats.confirmed_cases"
+                     [attr.aria-valuenow]="globalStats.recoveries"
+                     aria-valuemin="0"
+                     [attr.aria-valuemax]="globalStats.confirmed_cases"
+                     class="progress-bar progress-bar-template bg-success"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="no-padding-bottom">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4">
+            <dz-dz-stacked-chart></dz-dz-stacked-chart>
+          </div>
+          <div class="col-lg-8">
+            <dz-map></dz-map>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer__block block no-margin-bottom">
+        <div class="container-fluid text-center">
+          <p class="no-margin-bottom">
+            <span>2020 &copy; DZCOVID19 TRACKER. Sources</span>
+            <a href="https://en.wikipedia.org/wiki/COVID-19_pandemic_in_Algeria">Wikipedia</a> &nbsp;
+            <a href="http://covid19.sante.gov.dz/carte/">Minist&egrave;re de la sant&eacute; Alg&eacute;rien</a>
+          </p>
+        </div>
+      </div>
+    </footer>
   </div>
-  <div class="col-md-9 col-sm-12 dz-map-container">
-    <div class="dz-map"
-         leaflet
-         [leafletOptions]="options"
-         [leafletLayers]="layers">
-    </div>
-  </div>
-</main>
+</div>

@@ -1,0 +1,21 @@
+<div class="block no-margin-bottom">
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="mode" value="confirmed_cases" id="totalCases" [formControl]="modeFormControl">
+    <label class="form-check-label" for="totalCases">Nombre de cas</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="mode" id="deaths" value="deaths" [formControl]="modeFormControl">
+    <label class="form-check-label" for="deaths">D&eacute;c&egrave;s</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="mode" id="recovered" value="recoveries" [formControl]="modeFormControl">
+    <label class="form-check-label" for="recovered">Gu&eacute;risons</label>
+  </div>
+</div>
+<div class="block dz-map-chart">
+  <div class="dz-map"
+       leaflet
+       [leafletOptions]="options"
+       [leafletLayers]="layers$ | async">
+  </div>
+</div>

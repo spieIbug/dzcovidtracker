@@ -1,33 +1,25 @@
-import { Injectable } from '@angular/core';
-import * as moment from 'moment';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import * as moment from 'moment';
+import { StatistiqueParWilaya } from './app.model';
 import { map as _map } from 'lodash';
-
-export interface StatistiqueParWilaya {
-  province: string;
-  first_case: string;
-  confirmed_cases: string;
-  deaths: string;
-  recoveries: string;
-  latlng: [number, number];
-}
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StatsService {
-
+export class AppResource {
   constructor(private http: HttpClient) {
   }
 
-  getStatsForDay(date: moment.Moment): Observable<StatistiqueParWilaya[]> {
+  getStatistics(date: moment.Moment | string): Observable<StatistiqueParWilaya[]> {
     return this.http.get(`assets/${moment.utc(date).format('YYYY-MM-DD')}.json`)
       .pipe(
         map((response: StatistiqueParWilaya[]) => {
-            return _map(response, data => ({
+            return _map(response, data => new StatistiqueParWilaya({
               ...data,
+              confirmed_cases: data.confirmed_cases,
               first_case: moment.utc(data.first_case).format('DD/MM/YYYY'),
             }));
           }
