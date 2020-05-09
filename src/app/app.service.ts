@@ -37,9 +37,9 @@ export class AppService {
           <p>
             <dl>
               <dt>Premier cas signalé</dt><dd>${dailyStat.first_case}</dd>
-              <dt>Nombre de cas</dt><dd>${dailyStat.confirmed_cases}</dd>
-              <dt style="color: var(--danger)">Nombre de morts</dt><dd>${dailyStat.deaths}</dd>
-              <dt style="color: var(--success)">Nombre de guérisons</dt><dd>${dailyStat.recoveries}</dd>
+              <dt class="text-info">Nombre de cas</dt><dd>${dailyStat.confirmed_cases}</dd>
+              <dt class="text-danger">Nombre de morts</dt><dd>${dailyStat.deaths}</dd>
+              <dt class="text-success">Nombre de guérisons</dt><dd>${dailyStat.recoveries}</dd>
             </dl>
           </p>`, {minWidth: 300});
   }
@@ -50,9 +50,9 @@ export class AppService {
           <p>
             <dl>
               <dt>Premier cas signalé</dt><dd>${dailyStat.first_case}</dd>
-              <dt>Nombre de cas</dt><dd>${dailyStat.confirmed_cases}</dd>
-              <dt style="color: var(--danger)">Nombre de morts</dt><dd>${dailyStat.deaths}</dd>
-              <dt style="color: var(--success)">Nombre de guérisons</dt><dd>${dailyStat.recoveries}</dd>
+              <dt class="text-info">Nombre de cas</dt><dd>${dailyStat.confirmed_cases}</dd>
+              <dt class="text-danger">Nombre de morts</dt><dd>${dailyStat.deaths}</dd>
+              <dt class="text-success">Nombre de guérisons</dt><dd>${dailyStat.recoveries}</dd>
             </dl>
           </p>`, {minWidth: 300});
   }
@@ -63,9 +63,9 @@ export class AppService {
           <p>
             <dl>
               <dt>Premier cas signalé</dt><dd>${dailyStat.first_case}</dd>
-              <dt>Nombre de cas</dt><dd>${dailyStat.confirmed_cases}</dd>
-              <dt style="color: var(--danger)">Nombre de morts</dt><dd>${dailyStat.deaths}</dd>
-              <dt style="color: var(--success)">Nombre de guérisons</dt><dd>${dailyStat.recoveries}</dd>
+              <dt class="text-info">Nombre de cas</dt><dd>${dailyStat.confirmed_cases}</dd>
+              <dt class="text-danger">Nombre de morts</dt><dd>${dailyStat.deaths}</dd>
+              <dt class="text-success">Nombre de guérisons</dt><dd>${dailyStat.recoveries}</dd>
             </dl>
           </p>`, {minWidth: 300});
   }
