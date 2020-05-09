@@ -41,7 +41,7 @@ export class AppService {
               <dt class="text-danger">Nombre de morts</dt><dd>${dailyStat.deaths}</dd>
               <dt class="text-success">Nombre de guérisons</dt><dd>${dailyStat.recoveries}</dd>
             </dl>
-          </p>`, {minWidth: 300});
+          </p>`, {minWidth: 180});
   }
 
   totalDeathsMarker(dailyStat: StatistiqueParWilaya): Circle {
@@ -54,7 +54,7 @@ export class AppService {
               <dt class="text-danger">Nombre de morts</dt><dd>${dailyStat.deaths}</dd>
               <dt class="text-success">Nombre de guérisons</dt><dd>${dailyStat.recoveries}</dd>
             </dl>
-          </p>`, {minWidth: 300});
+          </p>`, {minWidth: 180});
   }
 
   totalRecorveredMarker(dailyStat: StatistiqueParWilaya): Circle {
@@ -67,6 +67,6 @@ export class AppService {
               <dt class="text-danger">Nombre de morts</dt><dd>${dailyStat.deaths}</dd>
               <dt class="text-success">Nombre de guérisons</dt><dd>${dailyStat.recoveries}</dd>
             </dl>
-          </p>`, {minWidth: 300});
+          </p>`, {minWidth: 180});
   }
 }
