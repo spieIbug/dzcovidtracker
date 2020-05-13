@@ -12,3 +12,6 @@ export class StatistiqueParWilaya {
     Object.assign(this, stat);
   }
 }
+
+export type FirstCase = { province: string, latlng: [number, number], first_case: string };
+export type TemporalFirstCases = { [date: string]: FirstCase };

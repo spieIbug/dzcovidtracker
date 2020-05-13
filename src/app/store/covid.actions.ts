@@ -6,6 +6,13 @@ export class LoadData {
   constructor(public date?: moment.Moment | string) {}
 }
 
+export class ChangeDate {
+  static type = `[DZCOVID] Changement de date`;
+
+  constructor(public date: moment.Moment | string) {
+  }
+}
+
 export class ChangeMode {
   static type = `[DZCOVID] Changement de mode`;
   constructor(public mode: ModeAffichage = 'confirmed_cases') {}

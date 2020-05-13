@@ -2,6 +2,7 @@
   display: block;
   width: 100%;
   height: 100%;
+  background-color: #22252a;
 
   svg {
     width: 2rem;
@@ -20,6 +21,10 @@
   div.dz-container {
     height: 92vh;
     margin-top: 5rem;
+  }
+
+  footer {
+    background: #2d3035;
   }
 
 }

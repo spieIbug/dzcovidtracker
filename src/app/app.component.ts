@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
-import { range } from 'lodash';
+import { groupBy, isEmpty, orderBy, range } from 'lodash';
 import { Select, Store } from '@ngxs/store';
 import { LoadData } from './store/covid.actions';
 import { CovidState } from './store/covid.state';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { StatistiqueParWilaya } from './app.model';
+import { AppService } from './app.service';
+
 
 @Component({
   selector: 'dz-root',
@@ -14,12 +15,17 @@ import { StatistiqueParWilaya } from './app.model';
 })
 export class AppComponent implements OnInit {
 
-  @Select(CovidState.getGlobalStats) globalStats$: Observable<{confirmed_cases: number, deaths: number, recoveries: number}>;
+  @Select(CovidState.getGlobalStats) globalStats$: Observable<{ confirmed_cases: number, deaths: number, recoveries: number }>;
+  @Select(CovidState.getDatas) datas$: Observable<StatistiqueParWilaya[]>;
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private service: AppService) {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new LoadData(moment.utc().add(-1, 'days')));
+    // Chargement des toutes les données dans le store depuis le lancement
+    const days = this.service.getRangeOfAvailableStats();
+    forkJoin([
+      ...days.map(day => this.store.dispatch(new LoadData(day))),
+    ]).subscribe();
   }
 }

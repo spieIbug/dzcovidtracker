@@ -2,22 +2,31 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { AppResource } from './app.resource';
-import { StatistiqueParWilaya } from './app.model';
+import { StatistiqueParWilaya, TemporalFirstCases } from './app.model';
 import { circle, Circle, Layer } from 'leaflet';
 import { ModeAffichage } from './store/covid.state';
-import { map as _map } from 'lodash';
+import { map as _map, range, orderBy, groupBy } from 'lodash';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppService {
 
-
   constructor(private resource: AppResource) {
   }
 
   getStatsForDay(date: moment.Moment | string): Observable<StatistiqueParWilaya[]> {
-    return this.resource.getStatistics(date);
+    return this.resource.getStatistics(date).pipe(map(stats => orderBy(stats, s => Number(s.confirmed_cases), 'desc')));
+  }
+
+  getTemporalFirstCases(datas: StatistiqueParWilaya[]): TemporalFirstCases {
+    const data = _map(datas, d => ({
+      first_case: moment(d.first_case, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+      province: d.province,
+      latlng: d.latlng,
+    }));
+    return groupBy(orderBy(data, 'first_case', 'asc'), 'first_case');
   }
 
   getMapMarkersByMode(datas: StatistiqueParWilaya[], mode: ModeAffichage): Layer[] {
@@ -68,5 +77,12 @@ export class AppService {
               <dt class="text-success">Nombre de guérisons</dt><dd>${dailyStat.recoveries}</dd>
             </dl>
           </p>`, {minWidth: 180});
+  }
+
+  getRangeOfAvailableStats(): moment.Moment[] {
+    const lastUpdate = moment.utc().set({hours: 0, minutes: 0});
+    const firstUpdate = moment.utc('2020-05-07T00:00:00');
+    const maxDays = lastUpdate.diff(firstUpdate, 'days');
+    return range(0, maxDays).map(index => moment.utc().subtract(index + 1, 'days')).reverse();
   }
 }

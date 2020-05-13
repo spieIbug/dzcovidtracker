@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { FormControl } from '@angular/forms';
+import { map as _map } from 'lodash';
 
 @Component({
   selector: 'dz-dz-stacked-chart',
@@ -55,12 +56,11 @@ export class DzStackedChartComponent implements OnInit {
     });
   }
 
-
   private updateBarChart(currentStats: StatistiqueParWilaya[]) {
-    this.barChartLabels = currentStats.map(c => c.province);
-    this.barChartData[0].data = currentStats.map(c => Number(c.confirmed_cases));
-    this.barChartData[1].data = currentStats.map(c => Number(c.deaths));
-    this.barChartData[2].data = currentStats.map(c => Number(c.recoveries));
+    this.barChartLabels = _map(currentStats, c => c.province);
+    this.barChartData[0].data = _map(currentStats, c => Number(c.confirmed_cases));
+    this.barChartData[1].data = _map(currentStats, c => Number(c.deaths));
+    this.barChartData[2].data = _map(currentStats, c => Number(c.recoveries));
   }
 
 }

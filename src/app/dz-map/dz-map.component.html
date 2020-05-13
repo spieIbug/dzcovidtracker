@@ -1,4 +1,4 @@
-<div class="block no-margin-bottom">
+<div class="block no-margin no-padding-bottom">
   <div class="form-check form-check-inline">
     <input class="form-check-input" type="radio" name="mode" value="confirmed_cases" id="totalCases" [formControl]="modeFormControl">
     <label class="form-check-label" for="totalCases">Nombre de cas</label>
@@ -11,11 +11,19 @@
     <input class="form-check-input" type="radio" name="mode" id="recovered" value="recoveries" [formControl]="modeFormControl">
     <label class="form-check-label" for="recovered">Gu&eacute;risons</label>
   </div>
+  <div class="form-check form-check-inline">
+    <button class="btn btn-sm" [ngClass]="animation? 'btn-danger': 'btn-success'" title="animation en fonction des premiers cas" (click)="animate()">
+      <i class="fa fa-play" *ngIf="!animation"></i>
+      <i class="fa fa-stop" *ngIf="animation"></i>
+    </button>
+  </div>
+  <strong>Jour affiché</strong> {{days[dayFormControl.value] | date:'dd/MM/yyyy'}}
+  <input type="range" class="custom-range" min="0" [max]="maxDays" id="jours" [formControl]="dayFormControl">
 </div>
-<div class="block dz-map-chart">
+<div class="block dz-map-chart no-padding">
   <div class="dz-map"
        leaflet
        [leafletOptions]="options"
-       [leafletLayers]="layers$ | async">
+       [leafletLayers]="animation? firstCaseMarkers: (layers$ | async)">
   </div>
 </div>

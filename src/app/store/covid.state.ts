@@ -1,6 +1,6 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { ChangeMode, LoadData } from './covid.actions';
+import { ChangeDate, ChangeMode, LoadData } from './covid.actions';
 import { StatistiqueParWilaya } from '../app.model';
 import { AppService } from '../app.service';
 import * as moment from 'moment';
@@ -10,7 +10,7 @@ import { sumBy } from 'lodash';
 export type ModeAffichage = 'confirmed_cases' | 'deaths' | 'recoveries';
 
 export interface DzCovidStateModel {
-  datas: StatistiqueParWilaya[];
+  datas: { [day: string]: StatistiqueParWilaya[]};
   mode: ModeAffichage;
   date: moment.Moment | string;
 }
@@ -18,9 +18,9 @@ export interface DzCovidStateModel {
 @State<DzCovidStateModel>({
   name: 'dzcovid',
   defaults: {
-    datas: [],
+    datas: {},
     mode: 'confirmed_cases',
-    date: moment.utc().add(-1, 'days'),
+    date: moment.utc().subtract(1, 'days'),
   }
 })
 @Injectable()
@@ -30,12 +30,20 @@ export class CovidState {
   constructor(private service: AppService) {
   }
 
+  @Action(ChangeDate)
+  changeDate(ctx: StateContext<DzCovidStateModel>, action: ChangeDate) {
+    ctx.patchState({
+      date: moment.utc(action.date),
+    });
+  }
+
   @Action(LoadData)
   loadData(ctx: StateContext<DzCovidStateModel>, action: LoadData) {
+    const dateString = moment.utc(action.date).format('YYYYMMDD');
     return this.service.getStatsForDay(action.date)
       .pipe(tap(datas => {
         ctx.patchState({
-          datas,
+          datas: {...ctx.getState().datas, [dateString]: datas},
           date: action.date,
         });
       }));
@@ -50,7 +58,8 @@ export class CovidState {
 
   @Selector()
   static getDatas(state: DzCovidStateModel): StatistiqueParWilaya[] {
-    return state.datas;
+    const dateString = moment.utc(state.date).format('YYYYMMDD');
+    return state.datas[dateString];
   }
 
   @Selector()
