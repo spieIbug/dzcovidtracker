@@ -67,20 +67,24 @@ export class DzMapComponent implements OnInit {
    */
   animate() {
     this.animation = !this.animation;
+    const interval$ = interval(1000);
+    const temporal$ = this.datas$.pipe(
+      filter(datas => !isEmpty(datas)), // filtre des falsy
+      first(), // plusieurs valeurs pour tous les jours, on s'interesse à la première
+      map(datas => this.service.getTemporalFirstCases(datas)), // clustering par date du first_case
+      switchMap((datas: TemporalFirstCases) => from(Object.values(datas))), // emettre valeur pa valeur
+    );
 
     if (this.animation) {
-      const interval$ = interval(1000);
-      const temporal$ = this.datas$.pipe(
-        filter(datas => !isEmpty(datas)), // filtre des falsy
-        first(), // plusieurs valeurs pour tous les jours, on s'interesse à la première
-        map(datas => this.service.getTemporalFirstCases(datas)), // clustering par date du first_case
-        switchMap((datas: TemporalFirstCases) => from(Object.values(datas))), // emettre valeur pa valeur
-      );
-
       zip(interval$, temporal$).pipe(
         map(([time, data]) => _map(data, d => circle(d.latlng, {radius: 10000, color: '#d13c4f', fillColor: '#d13c4f'}))),
-        tap(markers => this.firstCaseMarkers = [...this.firstCaseMarkers, ...markers]),
-      ).subscribe(() => {}, () => {}, () => { this.animation = false; });
+        tap(markers => {
+          this.firstCaseMarkers = [...this.firstCaseMarkers, ...markers];
+        }),
+      ).subscribe(() => {}, () => {}, () => {
+        this.firstCaseMarkers = [];
+        this.animation = false;
+      });
     }
 
   }
