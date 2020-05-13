@@ -74,10 +74,11 @@ export class CovidState {
 
   @Selector()
   static getGlobalStats(state: DzCovidStateModel): {confirmed_cases: number, deaths: number, recoveries: number} {
+    const dateString = moment.utc(state.date).format('YYYYMMDD');
     return {
-      confirmed_cases: sumBy(state.datas, (data: StatistiqueParWilaya) => Number(data.confirmed_cases)),
-      deaths: sumBy(state.datas, (data: StatistiqueParWilaya) => Number(data.deaths)),
-      recoveries: sumBy(state.datas, (data: StatistiqueParWilaya) => Number(data.recoveries)),
+      confirmed_cases: sumBy(state.datas[dateString], (data: StatistiqueParWilaya) => Number(data.confirmed_cases)),
+      deaths: sumBy(state.datas[dateString], (data: StatistiqueParWilaya) => Number(data.deaths)),
+      recoveries: sumBy(state.datas[dateString], (data: StatistiqueParWilaya) => Number(data.recoveries)),
     };
   }
 }
