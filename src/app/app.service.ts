@@ -81,7 +81,7 @@ export class AppService {
 
   getRangeOfAvailableStats(): moment.Moment[] {
     const lastUpdate = moment.utc().set({hours: 0, minutes: 0});
-    const firstUpdate = moment.utc('2020-05-07T00:00:00');
+    const firstUpdate = moment.utc('2020-03-21T00:00:00');
     const maxDays = lastUpdate.diff(firstUpdate, 'days');
     return range(0, maxDays).map(index => moment.utc().subtract(index + 1, 'days')).reverse();
   }
