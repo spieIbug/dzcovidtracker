@@ -6,6 +6,7 @@ import { CovidState } from './store/covid.state';
 import { forkJoin, Observable } from 'rxjs';
 import { StatistiqueParWilaya } from './app.model';
 import { AppService } from './app.service';
+import { switchMap } from 'rxjs/operators';
 
 
 @Component({
@@ -22,10 +23,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Chargement des toutes les données dans le store depuis le lancement
+    // Chargement des toutes les données dans le store depuis le lancement. On lance d'abord le premier jour. Ensuite le reste
     const days = this.service.getRangeOfAvailableStats();
-    forkJoin([
-      ...days.map(day => this.store.dispatch(new LoadData(day))),
-    ]).subscribe();
+    this.store.dispatch(new LoadData(days.shift())).pipe(
+      switchMap(() => forkJoin([
+        ...days.map(day => this.store.dispatch(new LoadData(day))),
+      ]))).subscribe();
   }
 }
